@@ -8,7 +8,7 @@ include_directories(
 
 link_directories(
     ${AKM_BINARY_DIR}/akm_core
-    ${BOOST_LIB_DIR}
+    ${Boost_LIBRARY_DIRS}
 )
 
 add_executable(akm_master_sound ${sources} ${headers})
