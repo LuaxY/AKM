@@ -72,24 +72,24 @@ private:
 class debug : public logger
 {
 public:
-    debug(verbosity level = verbosity::LOW) :
-        logger(level, "DEBUG", color::CYAN)
+    debug(verbosity level = LOW) :
+        logger(level, "DEBUG", CYAN)
     {}
 };
 
 class error : public logger
 {
 public:
-    error(verbosity level = verbosity::LOW) :
-        logger(level, "ERROR", color::RED)
+    error(verbosity level = LOW) :
+        logger(level, "ERROR", RED)
     {}
 };
 
 class info : public logger
 {
 public:
-    info(verbosity level = verbosity::LOW) :
-        logger(level, "INFO", color::YELLOW)
+    info(verbosity level = LOW) :
+        logger(level, "INFO", YELLOW)
     {}
 };
 

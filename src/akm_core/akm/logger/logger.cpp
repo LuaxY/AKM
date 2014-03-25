@@ -15,7 +15,7 @@ akm::logger::logger::~logger()
         std::cout << "[" << get_time() << "] [";
         set_color(tag_color);
         std::cout << tag;
-        set_color(color::DEFAULT);
+        set_color(DEFAULT);
         std::cout << "] " << message.str() << std::endl << std::flush;
     io_mutex.unlock();
 }

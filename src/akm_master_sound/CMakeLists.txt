@@ -12,4 +12,4 @@ link_directories(
 )
 
 add_executable(akm_master_sound ${sources} ${headers})
-target_link_libraries(akm_master_sound akm_core)
+target_link_libraries(akm_master_sound akm_core ${Boost_LIBRARIES})

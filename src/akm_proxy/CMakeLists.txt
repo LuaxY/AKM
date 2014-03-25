@@ -12,4 +12,4 @@ link_directories(
 )
 
 add_executable(akm_proxy ${sources} ${headers})
-target_link_libraries(akm_proxy akm_core)
+target_link_libraries(akm_proxy akm_core ${Boost_LIBRARIES})
