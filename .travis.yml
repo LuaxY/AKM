@@ -1,8 +1,8 @@
 language: cpp
 compiler:
   - gcc
-  - clang
 install:
  - sudo apt-get update
  - sudo apt-get install cmake libboost-dev libboost-thread-dev libboost-system-dev
+ - sudo chmod +x build.sh
  - ./build.sh
