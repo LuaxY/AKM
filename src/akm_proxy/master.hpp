@@ -5,28 +5,29 @@
 #include <memory>
 
 #include "akm/serialization/singleton.hpp"
+#include "akm/network/client.hpp"
 #include "akm/network/server.hpp"
 #include "akm/logger/logger.hpp"
 
-#include "akm/network/session_client_login.hpp"
-
-namespace akm {
+#include "sessions/session_client.hpp"
+#include "sessions/session_server.hpp"
 
 class master : public akm::serialization::singleton<master>
 {
 public:
-	master()
+    master(std::string ip, unsigned short game_port) :
+        m_ip(ip),
+        m_game_port(game_port)
 	{
 	}
 
-	void start(unsigned short port)
+	void start(unsigned short proxy_port)
 	{
+
 		try
 		{
-			boost::asio::io_service io_service;
-
-			master_client_login = new akm::network::server<akm::network::session_client_login>(io_service, port);
-
+			master_client = new akm::network::server<session_client>(io_service, proxy_port);
+			
 			io_service.run();
 		}
 		catch (std::exception& e)
@@ -35,13 +36,23 @@ public:
 		}
 	}
 
-	akm::network::server<akm::network::session_client_login>* get_master_client_login()
-	{ return master_client_login; }
+    void connect_to_ankama()
+    {
+        master_server = new akm::network::client<session_server>(io_service, m_ip, m_game_port);
+    }
+
+	akm::network::server<session_client>* get_master_client()
+	{ return master_client; }
+
+	akm::network::client<session_server>* get_master_server()
+	{ return master_server; }
 
 private:
-	akm::network::server<akm::network::session_client_login>* master_client_login;
+	akm::network::server<session_client>* master_client;
+	akm::network::client<session_server>* master_server;
+    boost::asio::io_service io_service;
+    std::string     m_ip;
+    unsigned short  m_game_port;
 };
-
-} // namespace akm
 
 #endif // MASTER_HPP

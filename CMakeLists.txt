@@ -8,4 +8,4 @@ ENDIF(WIN32)
 
 find_package(Boost)
 
-add_subdirectory (src)
+add_subdirectory(src)
