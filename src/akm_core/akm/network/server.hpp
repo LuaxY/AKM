@@ -57,7 +57,7 @@ private:
 			std::shared_ptr<T> client(new T(std::move(socket)));
             users.push_back(client);
 
-			boost::thread th(&T::start, client);
+            boost::thread th(&T::start, client);
 		}
 		else
 		{
