@@ -8,6 +8,7 @@
 #include <cstring>
 #include <sstream>
 
+#include "akm/network/client.hpp"
 #include "akm/network/server.hpp"
 #include "akm/logger/logger.hpp"
 
@@ -17,27 +18,34 @@ namespace network {
 class session
 {
 public:
-	void start()
+	virtual void start()
 	{
-		welcome();
+        try
+        {
+            welcome();
 
-		while (socket.is_open())
-		{
-			boost::system::error_code error;
+            while (socket.is_open())
+            {
+                boost::system::error_code error;
 
-			size = socket.read_some(boost::asio::buffer(buffer), error);
+                size = socket.read_some(boost::asio::buffer(buffer), error);
 
-			if (error == boost::asio::error::eof || size == 0)
-				close();
-			else
-			{
-				akm::logger::debug() << get_tag() << "data receive, " << size << " bytes";
-				handle();
-			}
-		}
+                if (error == boost::asio::error::eof || size == 0)
+                    close();
+                else
+                {
+                    akm::logger::debug() << get_tag() << "data receive, " << size << " bytes";
+                    handle();
+                }
+            }
+        }
+        catch (std::exception& e)
+        {
+            std::cerr << "Exception: " << e.what() << std::endl;
+        }
 	}
 
-	void write(char* data, int len)
+	virtual void write(char* data, int len)
 	{
 		socket.send(boost::asio::buffer(data, len));
 	}
@@ -59,7 +67,7 @@ protected:
 		akm::logger::info() << get_tag() << "new connection (" << socket.remote_endpoint().address() << ":" << socket.remote_endpoint().port() << ")";
 	}
 
-	void close()
+	virtual void close()
 	{
 		akm::logger::info() << get_tag() << "close connection (" << socket.remote_endpoint().address() << ":" << socket.remote_endpoint().port() << ")";
 		socket.close();
