@@ -11,31 +11,31 @@ template<class T>
 class singleton
 {
 protected:
-	singleton() = default;
-	~singleton() = default;
+    singleton() = default;
+    ~singleton() = default;
 
 public:
-	template<class ... Args>
-	static T& create(Args && ... args)
-	{
-		assert(!_singleton);
-		_singleton.reset(new T{ std::forward<Args>(args)... });
-		return *_singleton;
-	}
+    template<class ... Args>
+    static T& create(Args && ... args)
+    {
+        assert(!_singleton);
+        _singleton.reset(new T{ std::forward<Args>(args)... });
+        return *_singleton;
+    }
 
-	static void kill()
-	{
-		_singleton.reset(nullptr);
-	}
+    static void kill()
+    {
+        _singleton.reset(nullptr);
+    }
 
-	static T& instance()
-	{
-		assert(_singleton);
-		return *_singleton;
-	}
+    static T& instance()
+    {
+        assert(_singleton);
+        return *_singleton;
+    }
 
 private:
-	static std::unique_ptr<T> _singleton;
+    static std::unique_ptr<T> _singleton;
 };
 
 template<class T>

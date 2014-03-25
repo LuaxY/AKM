@@ -18,8 +18,8 @@ namespace network {
 class session
 {
 public:
-	virtual void start()
-	{
+    virtual void start()
+    {
         try
         {
             welcome();
@@ -43,44 +43,44 @@ public:
         {
             std::cerr << "Exception: " << e.what() << std::endl;
         }
-	}
+    }
 
-	virtual void write(char* data, int len)
-	{
-		socket.send(boost::asio::buffer(data, len));
-	}
+    virtual void write(char* data, int len)
+    {
+        socket.send(boost::asio::buffer(data, len));
+    }
 
 protected:
-	session(boost::asio::ip::tcp::socket _socket, std::string _tag) :
-		socket(std::move(_socket)),
-		tag(_tag)
-	{
-	}
+    session(boost::asio::ip::tcp::socket _socket, std::string _tag) :
+        socket(std::move(_socket)),
+        tag(_tag)
+    {
+    }
 
-	boost::asio::ip::tcp::socket socket;
-	boost::array<char, 256> buffer;
-	int size;
-	std::string tag;
+    boost::asio::ip::tcp::socket socket;
+    boost::array<char, 256> buffer;
+    int size;
+    std::string tag;
 
-	virtual void welcome()
-	{
-		akm::logger::info() << get_tag() << "new connection (" << socket.remote_endpoint().address() << ":" << socket.remote_endpoint().port() << ")";
-	}
+    virtual void welcome()
+    {
+        akm::logger::info() << get_tag() << "new connection (" << socket.remote_endpoint().address() << ":" << socket.remote_endpoint().port() << ")";
+    }
 
-	virtual void close()
-	{
-		akm::logger::info() << get_tag() << "close connection (" << socket.remote_endpoint().address() << ":" << socket.remote_endpoint().port() << ")";
-		socket.close();
-	}
+    virtual void close()
+    {
+        akm::logger::info() << get_tag() << "close connection (" << socket.remote_endpoint().address() << ":" << socket.remote_endpoint().port() << ")";
+        socket.close();
+    }
 
-	virtual void handle() = 0;
+    virtual void handle() = 0;
 
-	std::string get_tag()
-	{
-		std::ostringstream tag_format;
-		tag_format << "[" << tag << "] ";
-		return tag_format.str();
-	}
+    std::string get_tag()
+    {
+        std::ostringstream tag_format;
+        tag_format << "[" << tag << "] ";
+        return tag_format.str();
+    }
 };
 
 } // namespace network

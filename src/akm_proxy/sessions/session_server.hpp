@@ -6,11 +6,11 @@
 class session_server : public akm::network::session
 {
 public:
-	session_server(boost::asio::ip::tcp::socket _socket) :
-		session(std::move(_socket), "SERVER")
-	{}
+    session_server(boost::asio::ip::tcp::socket _socket) :
+        session(std::move(_socket), "SERVER")
+    {}
 
 private:
-	void handle();
+    void handle();
 };
 #endif // SESSION_SERVER_HPP

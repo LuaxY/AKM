@@ -6,15 +6,15 @@
 class session_client : public akm::network::session
 {
 public:
-	session_client(boost::asio::ip::tcp::socket _socket) :
-		session(std::move(_socket), "CLIENT")
-	{
+    session_client(boost::asio::ip::tcp::socket _socket) :
+        session(std::move(_socket), "CLIENT")
+    {
         init();
     }
 
 private:
     void init();
-	void handle();
+    void handle();
 };
 
 #endif // SESSION_CLIENT_HPP

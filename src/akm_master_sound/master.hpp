@@ -15,41 +15,41 @@
 class master : public akm::serialization::singleton<master>
 {
 public:
-	master()
-	{
-	}
+    master()
+    {
+    }
 
-	void start(unsigned short port)
-	{
-		try
-		{
-			boost::asio::io_service io_service;
+    void start(unsigned short port)
+    {
+        try
+        {
+            boost::asio::io_service io_service;
 
-			master_client_info = new akm::network::server<session_client_info>(io_service, port);
-			master_client_sound = new akm::network::server<session_client_sound>(io_service, port + 1);
-			master_reg_engine = new akm::network::server<session_reg_engine>(io_service, port + 2);
+            master_client_info = new akm::network::server<session_client_info>(io_service, port);
+            master_client_sound = new akm::network::server<session_client_sound>(io_service, port + 1);
+            master_reg_engine = new akm::network::server<session_reg_engine>(io_service, port + 2);
 
-			io_service.run();
-		}
-		catch (std::exception& e)
-		{
-			std::cerr << "Exception: " << e.what() << std::endl;
-		}
-	}
+            io_service.run();
+        }
+        catch (std::exception& e)
+        {
+            std::cerr << "Exception: " << e.what() << std::endl;
+        }
+    }
 
-	akm::network::server<session_client_info>* get_master_client_info()
-	{ return master_client_info; }
+    akm::network::server<session_client_info>* get_master_client_info()
+    { return master_client_info; }
 
-	akm::network::server<session_client_sound>* get_master_client_sound()
-	{ return master_client_sound; }
+    akm::network::server<session_client_sound>* get_master_client_sound()
+    { return master_client_sound; }
 
-	akm::network::server<session_reg_engine>* get_master_reg_engine()
-	{ return master_reg_engine; }
+    akm::network::server<session_reg_engine>* get_master_reg_engine()
+    { return master_reg_engine; }
 
 private:
-	akm::network::server<session_client_info>* master_client_info;
-	akm::network::server<session_client_sound>* master_client_sound;
-	akm::network::server<session_reg_engine>* master_reg_engine;
+    akm::network::server<session_client_info>* master_client_info;
+    akm::network::server<session_client_sound>* master_client_sound;
+    akm::network::server<session_reg_engine>* master_reg_engine;
 };
 
 #endif // MASTER_HPP

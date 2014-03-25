@@ -6,11 +6,11 @@
 class session_client_sound : public akm::network::session
 {
 public:
-	session_client_sound(boost::asio::ip::tcp::socket _socket) :
-		session(std::move(_socket), "SOUND")
-	{}
+    session_client_sound(boost::asio::ip::tcp::socket _socket) :
+        session(std::move(_socket), "SOUND")
+    {}
 
 private:
-	void handle();
+    void handle();
 };
 #endif // SESSION_CLIENT_SOUND_HPP
