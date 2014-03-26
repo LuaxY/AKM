@@ -2,7 +2,7 @@ language: cpp
 compiler:
   - gcc
 install:
- - sudo apt-get update
- - sudo apt-get install cmake libstdc++-4.8-dev libboost-dev libboost-thread-dev libboost-system-dev
+ - sudo apt-get -qq update
+ - sudo apt-get -qq install cmake libstdc++6-4.7-dev libboost-dev libboost-thread-dev libboost-system-dev
  - sudo chmod +x build.sh
  - ./build.sh
