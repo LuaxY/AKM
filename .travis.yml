@@ -2,7 +2,10 @@ language: cpp
 compiler:
   - gcc
 install:
+ - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
  - sudo apt-get -qq update
  - sudo apt-get -qq install cmake libboost-dev libboost-thread-dev libboost-system-dev
+ - if [ "$CXX" = "g++" ]; then sudo apt-get install -qq g++-4.8; fi
+ - if [ "$CXX" = "g++" ]; then export CXX="g++-4.8" CC="gcc-4.8"; fi
  - sudo chmod +x build.sh
  - ./build.sh
