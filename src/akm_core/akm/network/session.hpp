@@ -10,6 +10,7 @@
 
 #include "akm/network/client.hpp"
 #include "akm/network/server.hpp"
+#include "akm/dofus/packet.hpp"
 #include "akm/logger/logger.hpp"
 
 namespace akm {
@@ -58,7 +59,7 @@ protected:
     }
 
     boost::asio::ip::tcp::socket socket;
-    boost::array<char, 256> buffer;
+    boost::array<char, 2048> buffer;
     int size;
     std::string tag;
 
