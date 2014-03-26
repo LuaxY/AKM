@@ -2,6 +2,7 @@
 #define BINARY_READER_HPP
 
 #include <vector>
+#include <deque>
 #include <fstream>
 #include <cstring>
 
@@ -21,6 +22,13 @@ public:
         m_buffer(buffer),
         m_index(0)
     {
+    }
+
+    BinaryReader(const std::deque<char> buffer) :
+        m_index(0)
+    {
+        m_buffer.reserve(buffer.size());
+        std::copy(buffer.begin(), buffer.end(), std::back_inserter(m_buffer));
     }
 
     bool setIndex(unsigned int index)
@@ -61,26 +69,6 @@ public:
             (unsigned short)m_buffer[m_index + 1];
 
         m_index += 2;
-        return value;
-    }
-
-    char ReadByte()
-    {
-        char value = (char)m_buffer[m_index];
-
-        m_index++;
-        return value;
-    }
-    char* ReadBytes(unsigned int len)
-    {
-        char* value = new char[len + 1];
-        int i;
-        
-        for (i = 0; i < len; i++)
-            value[i] = m_buffer[m_index + i];
-        value[i] = 0;
-
-        m_index += len;
         return value;
     }
 
@@ -137,6 +125,27 @@ public:
             (unsigned int)m_buffer[m_index + 7];
 
         m_index += 8;
+        return value;
+    }
+
+    char ReadByte()
+    {
+        char value = m_buffer[m_index];
+
+        m_index++;
+        return value;
+    }
+
+    char* ReadBytes(int len)
+    {
+        char* value = new char[len + 1];
+        int i;
+
+        for (i = 0; i < len; i++)
+            value[i] = m_buffer[m_index + i];
+        value[i] = 0;
+
+        m_index += len;
         return value;
     }
 
