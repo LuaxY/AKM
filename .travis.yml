@@ -3,6 +3,6 @@ compiler:
   - gcc
 install:
  - sudo apt-get -qq update
- - sudo apt-get -qq install cmake libstdc++6-4.7-dev libboost-dev libboost-thread-dev libboost-system-dev
+ - sudo apt-get -qq install cmake libboost-dev libboost-thread-dev libboost-system-dev
  - sudo chmod +x build.sh
  - ./build.sh

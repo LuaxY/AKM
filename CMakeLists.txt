@@ -8,7 +8,7 @@ if(WIN32)
 endif(WIN32)
 
 if(UNIX)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=c++11")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=c++0x")
     find_package(Boost COMPONENTS system thread REQUIRED)
 endif()
 
