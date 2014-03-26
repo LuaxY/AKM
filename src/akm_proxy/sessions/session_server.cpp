@@ -33,7 +33,6 @@ void session_server::handle()
         std::cout << std::endl;*/
 
         main_session->write(output.getBuffer(), output.getIndex());
-        //main_session->write(last_packet.messageData, lenght);
 
         for (int i = 0; i < lenght; i++)
             m_buffer.pop_front();
