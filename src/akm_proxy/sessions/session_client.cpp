@@ -1,6 +1,13 @@
-#include "sessions/session_client.hpp"
 #include "sessions/session_server.hpp"
+#include "sessions/session_client.hpp"
+
+#include "akm/io/BinaryReader.hpp"
+#include "akm/io/BinaryWriter.hpp"
+
+#include "akm/dofus/packet.hpp"
+
 #include "master.hpp"
+//#include <stdio.h>
 
 void session_client::init()
 {
@@ -9,9 +16,6 @@ void session_client::init()
 
 void session_client::handle()
 {
-    /*std::shared_ptr<session_server> main_session = master::instance().get_master_server()->get_session(0);
-    main_session->write(buffer.data(), size);*/
-
     m_buffer.insert(m_buffer.end(), buffer.data(), buffer.data() + size);
     std::shared_ptr<session_server> main_session = master::instance().get_master_server()->get_session(0);
 
@@ -29,8 +33,9 @@ void session_client::handle()
         akm::logger::debug() << get_tag() << "ID: " << last_packet.messageId << " Lenght Type: " << last_packet.messageLenghtType << " Lenght: " << last_packet.messageLength;
 
         /*for (int i = 0; i < m_packet.messageLength; i++)
-        printf("%02X ", 0xFF & m_packet.messageData[i]);
+            printf("%02X ", 0xFF & m_packet.messageData[i]);
         std::cout << std::endl;*/
+        //akm::utils::hexdump(output.getBuffer(), output.getIndex());
 
         main_session->write(output.getBuffer(), output.getIndex());
 

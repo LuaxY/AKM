@@ -4,7 +4,6 @@
 #include "akm/io/BinaryReader.hpp"
 #include "akm/io/BinaryWriter.hpp"
 
-#include "akm/utils/hexdump.hpp"
 #include "akm/dofus/packet.hpp"
 
 #include "master.hpp"
