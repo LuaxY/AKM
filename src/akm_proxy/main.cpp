@@ -12,7 +12,7 @@ int main()
 {
     std::cout << "= AKM Proxy =" << std::endl << std::endl;
 
-    master::create("213.248.126.39", (unsigned short)443).start(5555);
+    master::create("213.248.126.37", (unsigned short)443).start(5555);
 
     system("PAUSE");
 
