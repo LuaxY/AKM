@@ -2,6 +2,7 @@
 #define PACKET_HPP
 
 #include "akm/io/BinaryReader.hpp"
+#include "akm/io/BinaryWriter.hpp"
 
 typedef struct packet_data
 {
@@ -82,7 +83,7 @@ public:
         return messageLenght;
     }
 
-    unsigned short computeTypeLen(unsigned short len)
+    static unsigned short computeTypeLen(unsigned short len)
     {
         if (len > 65535)
             return 3;
@@ -94,7 +95,7 @@ public:
         return 0;
     }
 
-    unsigned short subComputeStaticHeader(unsigned short msgId, unsigned short typeLen)
+    static unsigned short subComputeStaticHeader(unsigned short msgId, unsigned short typeLen)
     {
         return msgId << 2 | typeLen;
     }
@@ -104,18 +105,23 @@ public:
         return m_packet;
     }
 
-    void serialize(/*akm::io::BinaryWriter output,*/ unsigned short msgId, char* data, unsigned int len)
+    static void serialize(akm::io::BinaryWriter* output, packet_data packet)
+    {
+        serialize(output, packet.messageId, packet.messageData, packet.messageLength);
+    }
+
+    static void serialize(akm::io::BinaryWriter* output, unsigned short msgId, char* data, unsigned int len)
     {
         unsigned short typeLen = computeTypeLen(len);
-        //output->WriteUShort(subComputeStaticHeader(msgId, typeLen));
+        output->WriteUShort(subComputeStaticHeader(msgId, typeLen));
 
         switch (typeLen)
         {
             case 1:
-                //output->WriteByte(len);
+                output->WriteByte(len);
                 break;
             case 2:
-                //output->WriteUShort(len);
+                output->WriteUShort(len);
                 break;
             case 3:
                 // no function for 3 bytes :(
@@ -125,7 +131,7 @@ public:
                 break;
         }
 
-        //output->WriteBytes(data, len);
+        output->WriteBytes(data, len);
     }
 
 private:
