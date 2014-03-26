@@ -35,7 +35,7 @@ public:
                     close();
                 else
                 {
-                    akm::logger::debug() << get_tag() << "data receive, " << size << " bytes";
+                    //akm::logger::debug() << get_tag() << "data receive, " << size << " bytes";
                     handle();
                 }
             }

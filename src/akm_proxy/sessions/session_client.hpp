@@ -2,6 +2,7 @@
 #define SESSION_CLIENT_HPP
 
 #include "akm/network/session.hpp"
+#include <deque>
 
 class session_client : public akm::network::session
 {
@@ -15,6 +16,7 @@ public:
 private:
     void init();
     void handle();
+    std::deque<char> m_buffer;
 };
 
 #endif // SESSION_CLIENT_HPP

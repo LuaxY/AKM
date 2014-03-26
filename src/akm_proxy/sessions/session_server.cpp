@@ -26,7 +26,7 @@ void session_server::handle()
         akm::io::BinaryWriter output;
         akm::dofus::Packet::serialize(&output, last_packet);
 
-        akm::logger::debug() << "id: " << last_packet.messageId << " lenght type: " << last_packet.messageLenghtType << " lenght: " << last_packet.messageLength;
+        akm::logger::debug() << get_tag() << "ID: " << last_packet.messageId << " Lenght Type: " << last_packet.messageLenghtType << " Lenght: " << last_packet.messageLength;
 
         /*for (int i = 0; i < m_packet.messageLength; i++)
             printf("%02X ", 0xFF & m_packet.messageData[i]);
