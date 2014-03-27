@@ -14,5 +14,7 @@ public:
 private:
     void handle();
     std::deque<char> m_buffer;
+
+    void close();
 };
 #endif // SESSION_SERVER_HPP

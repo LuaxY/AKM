@@ -51,6 +51,12 @@ public:
         socket.send(boost::asio::buffer(data, len));
     }
 
+    virtual void close()
+    {
+        akm::logger::info() << get_tag() << "close connection (" << socket.remote_endpoint().address() << ":" << socket.remote_endpoint().port() << ")";
+        socket.close();
+    }
+
 protected:
     session(boost::asio::ip::tcp::socket _socket, std::string _tag) :
         socket(std::move(_socket)),
@@ -66,12 +72,6 @@ protected:
     virtual void welcome()
     {
         akm::logger::info() << get_tag() << "new connection (" << socket.remote_endpoint().address() << ":" << socket.remote_endpoint().port() << ")";
-    }
-
-    virtual void close()
-    {
-        akm::logger::info() << get_tag() << "close connection (" << socket.remote_endpoint().address() << ":" << socket.remote_endpoint().port() << ")";
-        socket.close();
     }
 
     virtual void handle() = 0;
